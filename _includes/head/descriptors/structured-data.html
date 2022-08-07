@@ -1,0 +1,124 @@
+
+{%- assign facebook = site.socials | where: 'name', 'Facebook' -%}
+
+{%- assign twitter = site.socials | where: 'name', 'Twitter' -%}
+
+<!-- *** STRUCTURED DATA *** -->
+<!-- WebSite -->
+<!-- const -->
+<script type="application/ld+json">
+{ "@context":"https://schema.org",
+  "@graph":[ {
+    "@type":"WebSite",
+    "@id":"{{ site.url }}{{ site.baseurl }}/#website",
+    "url": "{{ site.url }}{{ site.baseurl }}/",
+    "sameAs":[
+      "mailto:{{ site.email }}",
+      "{{ twitter[0].url }}/",
+      "{{ facebook[0].url }}/" ],
+    "name": "{{ site.title }} | {{ site.subtitle }}",
+    "description": "{{ site.description }}",
+    "image": "{{ site.url }}{{ site.baseurl }}{{ site.fallback_path }}{{ site.brand }}",
+    "author":[ {
+      /* Person */
+      "@type": "Person",
+      "@context": "http://schema.org",
+      "name": "{{ site.data.authors.default.name }}",
+      "description": "{{ site.description }}",
+      "image": "{{ site.url }}{{ site.baseurl }}{{ site.fallback_path }}{{ site.brand }}"} ]
+     } , {
+    /* WePage */
+    /* var */
+    "@type":"WebPage",
+    "@id":"{{ site.url }}{{ site.baseurl }}{{ page.url }}#webpage",
+    "url":"{{ site.url }}{{ site.baseurl }}{{ page.url }}",
+    "inLanguage":"en-GB",
+    "name":"{%- if page.title -%} {{ page.title }} | {{ site.title }} {%- else -%} {{ site.title }} | {{ site.subtitle }} {% endif %}",
+    "description": "{%- if page.description -%} {{ page.descrition }}{%- else -%}{{ site.description }}{% endif %}",
+    "datePublished":"{{ page.date }}",
+    "dateModified":"{{ 'now' | date_to_xmlschema }}",
+    "isPartOf":[{
+      "@id":"{{ site.url }}{{ site.baseurl }}/#website"}] }] } </script>
+
+<!-- Organization -->
+<script type="application/ld+json">
+{ "@context": "http://schema.org",
+  "@type": "Organization",
+  "url": "{{ site.url }}{{ site.baseurl }}/",
+  /* only applies to registered business */
+  "legalName": "{{ site.title }} Limited",
+  "description": "{{ site.description }}",
+  "image": "{{ site.url }}{{ site.baseurl }}{{ site.fallback_path }}{{ site.brand }}",
+  "logo": "{{ site.url }}{{ site.baseurl }}{{ site.fallback_path }}{{ site.logo }}",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "{{ site.postal_add.street }}",
+    "addressLocality": "{{ site.postal_add.city }}",
+    "addressRegion": "{{ site.postal_add.region }}",
+    "addressCountry": "{{ site.postal_add.country }}",
+    "postalCode": "{{ site.postal_add.postcode }}" },
+  "telephone": "{{ site.phone }}",
+  "sameAs":[
+    "mailto:{{ site.email }}",
+    "{{ twitter[0].url }}/",
+    "{{ facebook[0].url }}/" ] } </script>
+
+<!-- Article -->
+{% if page.id %}<!-- this is a post -->
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "author": {
+      "@type": "Person",
+      "name":
+      "{%- if page.author -%}{{ site.data.authors[page.author].name }}{%- else -%}{{ site.data.authors.default.name }}{% endif %}"
+    },
+    "creator": {
+      "@type": "Person",
+      "name":
+      "{%- if page.author -%}{{ site.data.authors[page.author].name }}{%- else -%}{{ site.data.authors.default.name }}{% endif %}"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "{{ site.title }}",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{{ site.url }}{{ site.baseurl }}{{ site.fallback_path }}{{ site.logo }}"
+      }
+    },
+    "headline": "{{ page.title }} | {{ site.title }}",
+    "datePublished": "{{ page.date | date_to_xmlschema }}",
+    "dateModified": "{{ 'now' | date_to_xmlschema }}",
+    "description": "{{ page.description }}",
+    "inLanguage": "en",
+    "url": "{{ page.url }}",
+    "name": "{{ page.title }} | {{ site.title }}",
+    "image": {
+      "@type": "ImageObject",
+      "url": "{%- if page.image -%}{{ site.url }}{{ site.baseurl }}{{ site.default_path }}{{ page.image | prepend: 'posts/' }}{%- else -%}{{ site.url }}{{ site.baseurl }}{{ site.fallback_path }}{{ site.brand }}{%- endif -%}"
+    },
+    "mainEntityOfPage": "{{ site.url }}{{ site.baseurl }}{{ page.url }}"
+  }
+</script>
+{% else %}
+<!-- LocalBusiness -->
+<script type="application/ld+json">
+  { "@context": "http://schema.org",
+    "@type": "LocalBusiness",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "{{ site.postal_add.street }}",
+      "addressLocality": "{{ site.postal_add.city }}",
+      "addressRegion": "{{ site.postal_add.region }}",
+      "addressCountry": "{{ site.postal_add.country }}",
+      "postalCode": "{{ site.postal_add.postcode }}"
+    },
+    "name": "{{ site.title }} | {{ site.subtitle }}",
+    "alternateName": "{{ site.title }}",
+    "description": "{{ site.description }}",
+    "telephone": "{{ site.phone }}",
+    "openingHours": "{{ site.opening_hours }}",
+    "image": "{{ site.url }}{{ site.baseurl }}{{ site.fallback_path }}{{ site.brand }}"
+  } </script>
+{% endif %}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <title>
+    {% if page.title %}
+      {{ page.title }} | {{ site.title }}
+    {% else %}
+      {{ site.title }} | {{ site.subtitle }}
+    {% endif %}
+  </title>
+
+  <!-- use page descriptions if it exist -->
+  <meta name="description"
+    content="
+      {% if page.description %}
+        {{ page.description }}
+      {% else %}
+        {{ site.description }}
+      {% endif %}" />
+
+  <meta name="keywords" content="{{ site.keywords }}" />
+
+  <meta name="author" content="{{ site.data.authors.default.name }}" />
+
+  {% assign date = 'now' | date: "%Y" %}
+  <meta name="copyright" content="Copyright {{ site.title | append: ' Limited ' | append: date }}" />
+
+  <!-- if production, get bots to follow us -->
+  {% if jekyll.environment == "production" %}
+  <meta name="robots" content="follow" />
+  <!-- else, stop the site from beinf indexed -->
+  {% else %}
+  <meta name="robots" content="noindex">
+  {% endif %}
+
+  <link rel="canonical" href="{{ page.url | absolute_url }}" />
+
+  <link rel="shortcut icon" type="image/x-icon" href="{{ site.fallback_path | append: site.favicon | relative_url }}">
+
+  {% include head/descriptors/structured-data.html %}
+
+  {% include /head/descriptors/twitter-meta.html %}
+
+  {% include /head/descriptors/og-meta.html %}
+
+  {% include /head/stylesheets.html %}
+
+  {% if jekyll.environment == "production" %}
+  {% include head/google-analytics.html %}
+  {% endif %}
+
+</head>
+
+<body class="preload" onload="animate_after_load()">

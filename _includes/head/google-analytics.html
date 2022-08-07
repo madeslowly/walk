@@ -1,0 +1,22 @@
+<!-- This goes before </head> closing tag -->
+
+{% if site.google.verification %}
+
+<!-- Google verification -->
+<meta name="google-site-verification" content="{{ site.google.verification }}" />
+
+{% endif %}
+
+{% if site.google.analytics %}
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google.analytics }}"></script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{ site.google.analytics }}');
+</script>
+
+{% endif %}

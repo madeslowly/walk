@@ -1,0 +1,47 @@
+
+{% assign scripts = page.scripts | split: ', '%}
+{% if scripts contains 'svg-aos' %}
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.6.1/lodash.min.js" ></script>
+
+  <script type="text/javascript" src="{{ '/assets/js/svg_text_width.js' | relative_url }}" async></script>
+
+  <script type="text/javascript" src="{{ '/assets/js/svg_aos.js' | relative_url }}" async></script>
+
+  {% include functions/reposition-svg-labels.html %}
+
+{% endif %}
+
+{% if scripts contains 'kwes' %}
+
+  <script src="https://kwes.io/v2/kwes-script.js" async></script>
+
+{% endif %}
+
+{% if scripts contains 'checkAll' %}
+
+  <script type="text/javascript" src="{{ '/assets/js/checkAll.js' | relative_url }}" async></script>
+
+{% endif %}
+
+<script type="text/javascript" src="{{ '/assets/js/animate_after_load.js' | relative_url }}" async></script>
+
+<script type="text/javascript" src="{{ '/assets/js/calc-mobile-viewport.js' | relative_url}}" async></script>
+
+<script type="text/javascript" src="{{ '/assets/js/nav-scroll.js' | relative_url }}" async></script>
+
+<script type="text/javascript" src="{{ '/assets/js/mobile-nav-slider.js' | relative_url }}" async></script>
+
+<script type="text/javascript" src="{{ '/assets/vendor/aos/aos.js' | relative_url }}" ></script>
+
+<script>
+  AOS.init({
+    disable: false,
+    duration: {{ site.aos-duration }},
+    easing: '{{ site.aos-easing }}'
+  });
+</script>
+
+
+</body>
+</html>
