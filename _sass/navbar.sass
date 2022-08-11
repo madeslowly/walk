@@ -1,0 +1,106 @@
+
+.primary__navbar
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  background-color: var(--clr-primary-coral)
+  font-family: inherit
+  font-size: inherit
+  font-weight: inherit
+  color: var(--clr-secondary-white)
+
+.nav__brand
+  position: absolute
+  left: 0
+  top: 0
+  width: 160px
+
+  & .sl__disk
+    fill: var(--clr-secondary-white)
+
+  & .sl__icon
+    fill: var(--clr-primary-coral)
+
+  .sl__text
+    display: none
+
+.nav__list
+  text-align: center
+  line-height: calc( var(--fs-body) * 2 )
+  height: 0
+  max-height: 90vh
+  overflow: hidden
+  @include default-trans
+
+  .nav--entry
+    opacity: 0
+    display: none
+
+    &:first-child
+      padding-top: calc( var(--fs-body) * 2 )
+
+.nav__list.active
+  overflow: scroll
+
+  .nav--entry
+    display: block
+
+.nav--link
+  color: inherit
+  text-decoration: none
+
+
+.mobile-nav-header
+  margin-top: var(--fs-body)
+
+.mobile-reveal-menu
+  font-size: var(--fs-button)
+  @include default-trans
+
+  &.active
+    transform: rotateX(180deg)
+
+
+// For links as the slider opens
+// the timings are set in mobile-nav-slider.js
+@keyframes navLinksFade
+  from
+    opacity: 0
+    transform: translateY(10px)
+
+  to
+    opacity: 1
+    transform: translateY(0)
+
+@media only screen and (min-width: 1024px)
+
+  .mobile-nav-header,
+  .mobile-reveal-menu
+    display: none
+    visibility: hidden
+
+  .nav__list
+    height: auto
+
+    .nav--entry
+      display: inline-block
+      opacity: 1
+      margin-right: 2rem
+      @include default-trans
+
+      &:first-child
+        padding-top: 0
+
+      &:hover
+        color: var(--clr-secondary-dark-grey)
+
+  .primary__navbar
+    flex-direction: row
+    justify-content: flex-end
+    padding: .8rem 0
+
+  .nav__brand .sl__text
+    transform: translateY(5px) translateX(10px)
+    display: block
+    fill: var(--clr-secondary-white)

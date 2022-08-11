@@ -1,0 +1,57 @@
+<!-- footer -->
+<footer class="ft__wrapper">
+
+  <div class="ft__brand">
+    <a href="{{ site.baseurl }}/">
+
+      {% include branding/site-logo.svg %}
+
+    </a>
+  </div>
+
+  <div class="ft__socials">
+    {% for item in site.socials %}
+    <li class="socials--entry">
+    <a href="{{ item.url | relative_url }}" class="socials--link">
+    {{ item.name }}</a>
+    </li>
+    {% endfor %}
+  </div>
+
+  <div class="ft__sub">
+
+  </div>
+
+
+  <div class="ft__quick-links">
+    <ul role="list" class="">
+    {% for item in site.data.menu.quicklinks %}
+    <li class="quick-links--entry">
+    <a href="{{ item.url | relative_url }}" class="quick-links--link">
+    {{ item.name }}</a>
+    </li>
+    {% endfor %}
+    </ul>
+  </div>
+
+
+
+
+  <div class="ft__legals">
+    {% for item in site.data.menu.legals %}
+    <li class="legals--entry">
+    <a href="{{ item.url | relative_url }}" class="legals--link">
+    {{ item.name }}</a>
+    </li>
+    {% endfor %}
+  </div>
+
+  <div class="ft__copyright">
+    <p>{{ site.company.number }}</p>
+
+    <p class="copyright">&copy; <script>
+        document.write(new Date().getFullYear())
+      </script> {{ site.title }}</p>
+  </div>
+
+</footer>
